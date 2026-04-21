@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OP3 URL Builder</title>
+<style>
+    body {
+        font-family: system-ui, sans-serif;
+        background: #f7f7f9;
+        padding: 40px;
+        max-width: 700px;
+        margin: auto;
+        color: #222;
+    }
+
+    h1 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    .card {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        margin-top: 20px;
+    }
+
+    label {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    button {
+        background: #0057ff;
+        border: none;
+        padding: 12px 20px;
+        color: white;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #003fcc;
+    }
+
+    .output {
+        margin-top: 20px;
+        padding: 15px;
+        background: #eef4ff;
+        border-left: 4px solid #0057ff;
+        border-radius: 6px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    .hidden {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<h1>OP3 URL Builder</h1>
+<p>Auto‑calculate file size, duration, and generate enclosure + iTunes duration tags.</p>
+
+<!-- TOP AD -->
+  <div class="ad-zone ad-top" data-ad-spot="top"></div>
+
+<div class="card">
+
+    <label for="mp3">Your MP3 URL</label>
+    <input id="mp3" type="text" placeholder="https://example.com/audio/file123.mp3" />
+
+    <button onclick="buildOP3()">Generate Tags</button>
+
+    <!-- MIDDLE AD (formerly sidebar) -->
+<div class="ad-zone ad-middle" data-ad-spot="middle"></div>
+
+    <div id="result" class="output hidden"></div>
+</div>
+<br>
+       <!-- BOTTOM AD -->
+  <div class="ad-zone ad-bottom" data-ad-spot="bottom"></div>
+
+<!--<script>
+
+import fetch from "node-fetch";
+
+export default async function handler(req, res) {
+    const url = req.query.url;
+
+    const head = await fetch(url, { method: "HEAD" });
+    const size = head.headers.get("content-length");
+
+    res.json({ size });
+}
+
+
+
+function formatDuration(seconds) {
+    seconds = Number(seconds);
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = Math.floor(seconds % 60);
+
+    if (h > 0) {
+        return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+    return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+async function getFileSize(url) {
+    console.log("🔍 getFileSize() called with URL:", url);
+
+    try {
+        console.log("➡️ Attempting HEAD request...");
+        let response = await fetch(url, { method: "HEAD" });
+
+        const headLength = response.headers.get("content-length");
+        console.log("📥 HEAD content-length:", headLength);
+
+        if (headLength) {
+            console.log("✅ Using HEAD content-length:", headLength);
+            return Number(headLength);
+        }
+
+        console.log("⚠️ HEAD missing content-length. Trying Range fallback...");
+
+        // Fallback: GET with Range header
+        response = await fetch(url, {
+            method: "GET",
+            headers: { Range: "bytes=0-1" }
+        });
+
+        const contentRange = response.headers.get("content-range");
+        console.log("📥 Range content-range:", contentRange);
+
+        if (contentRange && contentRange.includes("/")) {
+            const size = Number(contentRange.split("/")[1]);
+            console.log("✅ Extracted size from content-range:", size);
+            return size;
+        }
+
+        console.log("❌ Could not determine file size from Range request.");
+        return null;
+
+    } catch (err) {
+        console.log("💥 Error in getFileSize():", err);
+        return null;
+    }
+}
+
+
+function getDuration(url) {
+    return new Promise(resolve => {
+        const audio = new Audio();
+        audio.src = url;
+        audio.addEventListener("loadedmetadata", () => resolve(audio.duration));
+        audio.addEventListener("error", () => resolve(null));
+    });
+}
+
+async function buildOP3() {
+    const input = document.getElementById("mp3").value.trim();
+    const resultBox = document.getElementById("result");
+
+    if (!input) {
+        resultBox.classList.remove("hidden");
+        resultBox.textContent = "Please enter an MP3 URL.";
+        return;
+    }
+
+    let cleaned = input.replace(/^https?:\/\//, "");
+    if (!cleaned.endsWith(".mp3")) cleaned += ".mp3";
+
+    const op3URL = `https://op3.dev/e/${cleaned}`;
+
+    const audioLength = await getFileSize(input);
+    const duration = await getDuration(input);
+
+    const enclosureTag =
+`<enclosure url="${op3URL}" length="${audioLength || ''}" type="audio/mpeg"/>`;
+
+    const itunesDurationTag =
+`<itunes:duration>${duration ? Math.round(duration) : ''}</itunes:duration>`;
+
+    resultBox.classList.remove("hidden");
+    resultBox.textContent =
+`Enclosure Tag:
+${enclosureTag}
+
+iTunes Duration:
+${itunesDurationTag}`;
+}
+</script>-->
+<script src="script.js"></script>
+<script src="ad.js"></script>
+
+</body>
+</html>

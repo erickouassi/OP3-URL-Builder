@@ -1,0 +1,52 @@
+{
+  "settings": {
+    "ads_enabled": true,
+    "popup_enabled": true,
+    "rotation_interval": 45000,
+    "popup_min": 10000,
+    "popup_max": 30000
+  },
+  "support_no_ads": {
+    "text": "Support us without ads",
+    "url": "https://erickouassi.com/donate.html"
+  },
+  "ads": [
+    {
+      "id": "leaderboard-1",
+      "type": "image",
+      "label": "Sponsored",
+      "weight": 4,
+      "image": "https://via.placeholder.com/728x90?text=Leaderboard+Ad",
+      "url": "https://example.com/offer1",
+      "preferred_spots": ["top", "bottom"]
+    },
+    {
+      "id": "rectangle-1",
+      "type": "image",
+      "label": "Featured Tool",
+      "weight": 3,
+      "image": "https://via.placeholder.com/300x250?text=Medium+Rectangle",
+      "url": "https://example.com/tool",
+      "preferred_spots": ["middle", "top"]
+    },
+    {
+      "id": "text-promo-1",
+      "type": "text",
+      "label": "Ad",
+      "weight": 2,
+      "text": "Boost your productivity – try this powerful tool!",
+      "url": "https://example.com/productivity",
+      "preferred_spots": ["top", "bottom", "middle"]
+    },
+    {
+      "id": "small-banner-1",
+      "type": "image",
+      "label": "Quick Deal",
+      "weight": 1,
+      "image": "https://via.placeholder.com/468x60?text=Small+Banner+Ad",
+      "url": "https://example.com/deal",
+      "preferred_spots": ["bottom"]
+    }
+  ],
+  "fallback_message": "Ads are blocked. Please consider supporting us without ads."
+}
